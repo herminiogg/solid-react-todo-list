@@ -130,12 +130,13 @@ async function saveSolidTasks(tasks, oldTasks) {
   let session = await getCurrentSession();
   let url = session.webId.replace("profile/card#me", "todo/todo.ttl#todo");
   let todo = data[url];
-  oldTasks.forEach(async t => {
+  for(const t of oldTasks) {
     await todo["schema:itemListElement"].delete(t.toString());
-  });
-  tasks.forEach(async t => {
+  }
+  for(const t of tasks) {
     await todo["schema:itemListElement"].add(t.toString());
-  });
+  }
+  alert("Saved to your Solid POD");
 }
 
 async function getCurrentSession() {
